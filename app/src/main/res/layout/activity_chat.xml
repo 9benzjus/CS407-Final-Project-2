@@ -35,9 +35,9 @@
             android:id="@+id/txt_received_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFF"
+            android:textColor="#FFF"/>
         <!-- Other styling attributes -->
-        />
+
     </FrameLayout>
 
 
