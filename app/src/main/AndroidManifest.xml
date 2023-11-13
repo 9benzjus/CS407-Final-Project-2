@@ -13,6 +13,9 @@
         android:theme="@style/Theme.BadgerBash"
         tools:targetApi="31">
         <activity
+            android:name=".CreateEventPage"
+            android:exported="false" />
+        <activity
             android:name=".EventDescriptionPage"
             android:exported="false" />
         <activity
