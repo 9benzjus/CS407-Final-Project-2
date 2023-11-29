@@ -1,4 +1,4 @@
-package com.cs407.project;
+package com.cs407.badgerbash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
