@@ -18,7 +18,7 @@ public class CreateEventPage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateEventPage.this, Homepage.class);
+                Intent intent = new Intent(CreateEventPage.this, MainActivity.class);
                 startActivity(intent);
             }
         });
