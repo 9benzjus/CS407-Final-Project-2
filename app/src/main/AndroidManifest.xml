@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BadgerBash"
         tools:targetApi="31">
+
         <activity
             android:name=".CreateEventPage"
             android:exported="false" />
