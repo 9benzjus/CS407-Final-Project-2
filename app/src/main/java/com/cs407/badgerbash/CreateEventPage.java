@@ -42,7 +42,7 @@ public class CreateEventPage extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
             Uri selectedImage = data.getData();
-            ImageView imageView = findViewById(R.id.imageView2);
+            ImageView imageView = findViewById(R.id.pfp);
             imageView.setImageURI(selectedImage);
         }
     }

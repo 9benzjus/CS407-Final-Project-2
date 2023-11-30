@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "361431626626",
+    "project_id": "badgerbash-1c11d",
+    "storage_bucket": "badgerbash-1c11d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361431626626:android:54e2be0c0b0a0c6f4ed59b",
+        "android_client_info": {
+          "package_name": "com.cs407.badgerbash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-WGjQCBjfPjdhtBBmzK0AwTuDmiVD5bk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
