@@ -17,7 +17,7 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
         Button loginbutton = findViewById(R.id.button);
         Button forgotbutton = findViewById(R.id.button2);
-        Button createbutton = findViewById(R.id.CreateButton);
+        Button createbutton = findViewById(R.id.AddTagsButton);
         EditText usernameEditText = (EditText) findViewById(R.id.newusernme);
         EditText passwordEditText = (EditText) findViewById(R.id.newpassword);
 
