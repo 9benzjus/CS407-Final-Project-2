@@ -10,102 +10,144 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="12dp"
+        app:cornerRadius="4dp"
         android:text="Back"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="12dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="77dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
         android:inputType="text"
+        android:minHeight="48dp"
         android:text="Username"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="80dp" />
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/editName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="82dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="text"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="287dp" />
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/editName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="21dp"
         android:ems="10"
         android:hint="Gender"
         android:inputType="text"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="353dp" />
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editName" />
 
     <EditText
         android:id="@+id/editName3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Pronouns"
         android:inputType="text"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="422dp" />
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editName2" />
 
     <EditText
         android:id="@+id/editName4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="23dp"
         android:ems="10"
         android:hint="Link"
         android:inputType="text"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="490dp" />
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editName3" />
 
     <EditText
         android:id="@+id/editName5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="21dp"
         android:ems="10"
         android:hint="Birthday"
         android:inputType="text"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="556dp" />
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editName4" />
 
     <Button
-        android:id="@+id/editPhotoButton"
-        android:layout_width="76dp"
-        android:layout_height="37dp"
-        android:text="Edit"
+        android:id="@+id/changePfpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="31dp"
+        android:text="Change Profile Picture"
         android:textSize="13dp"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="137dp" />
+        app:cornerRadius="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/username"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextSizeCheck" />
 
     <Button
         android:id="@+id/editPasswordButton"
         android:layout_width="wrap_content"
-        android:layout_height="37dp"
+        android:layout_height="48dp"
+        app:cornerRadius="4dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginBottom="90dp"
         android:text="Change Password"
         android:textSize="13dp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="226dp" />
+        app:layout_constraintBottom_toTopOf="@+id/editName2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/changePfpButton"
+        tools:ignore="TextSizeCheck" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cornerRadius="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="28dp"
         android:text="Save"
-        tools:layout_editor_absoluteX="295dp"
-        tools:layout_editor_absoluteY="20dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
