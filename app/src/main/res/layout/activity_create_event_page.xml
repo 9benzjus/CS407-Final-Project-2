@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/CRHomeButton"
+        app:cornerRadius="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -18,6 +19,7 @@
 
     <Button
         android:id="@+id/CRIEIButton"
+        app:cornerRadius="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -43,16 +45,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
         android:text="Tags"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/CreateButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/CreateButton"
+        app:cornerRadius="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
         android:layout_marginTop="14dp"
-        android:text="Button"
+        android:text="Add tags"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -70,7 +73,7 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/CreateButton" />
 
     <EditText
         android:id="@+id/editTextText2"
@@ -90,6 +93,7 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cornerRadius="4dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="27dp"
@@ -111,10 +115,11 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/CreateEvtButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            app:cornerRadius="0dp"
             android:text="Create" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

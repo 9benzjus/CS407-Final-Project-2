@@ -26,6 +26,5 @@ public class EventDescriptionPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }
