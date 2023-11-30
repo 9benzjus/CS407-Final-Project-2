@@ -47,7 +47,7 @@ public class login extends AppCompatActivity {
                 String storedPassword = sharedPreferences.getString("Password", "");
                 if(inputUsername.equals(storedUsername) && inputPassword.equals(storedPassword)) {
                     // Passwords match, navigate to HomePageActivity
-                    Intent intent = new Intent(login.this, Homepage.class);
+                    Intent intent = new Intent(login.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
