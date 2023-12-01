@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/pfp"
+        android:id="@+id/EventImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -37,8 +37,8 @@
         android:minHeight="48dp"
         android:text="Username"
         android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/pfp"
-        app:layout_constraintTop_toTopOf="@+id/pfp" />
+        app:layout_constraintStart_toEndOf="@+id/EventImage"
+        app:layout_constraintTop_toTopOf="@+id/EventImage" />
 
     <EditText
         android:id="@+id/editName"
@@ -51,7 +51,7 @@
         android:inputType="text"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pfp" />
+        app:layout_constraintTop_toBottomOf="@+id/EventImage" />
 
     <EditText
         android:id="@+id/editName2"
@@ -116,10 +116,10 @@
         android:text="Change Profile Picture"
         android:textSize="13dp"
         app:cornerRadius="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/pfp"
+        app:layout_constraintBottom_toBottomOf="@+id/EventImage"
         app:layout_constraintEnd_toEndOf="@+id/username"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/pfp"
+        app:layout_constraintStart_toEndOf="@+id/EventImage"
         app:layout_constraintTop_toBottomOf="@+id/username"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="TextSizeCheck" />
