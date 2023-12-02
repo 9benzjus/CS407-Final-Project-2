@@ -1,6 +1,7 @@
 package com.cs407.badgerbash;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Database;
 
 import android.content.Intent;
 import android.media.Image;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,20 +31,28 @@ public class CreateEventPage extends AppCompatActivity {
         setUpHomeButton(home);
 
         Button insertEventImgButton = findViewById(R.id.CRIEIButton);
-        insertEventImgButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 1);
-            }
-        });
+//        insertEventImgButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(intent, 1);
+//            }
+//        });
 
         EditText brief=findViewById(R.id.Brief);
         EditText full=findViewById(R.id.Full);
         EditText name=findViewById(R.id.EvtName);
 
+        Button addLocationButton=findViewById(R.id.AddLocationButton);
+        addLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateEventPage.this, MapSelect.class);
+                startActivity(intent);
+            }
+        });
 
-        rootRef= FirebaseDatabase.getInstance().getReference();
+        rootRef= FirebaseDatabase.getInstance().getReference().child("Tony");
         Button createEvtButton=findViewById(R.id.CreateEvtButton);
         createEvtButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,8 +60,12 @@ public class CreateEventPage extends AppCompatActivity {
                 String eventName=name.getText().toString();
                 String briefDescription=brief.getText().toString();
                 String fullDescription=full.getText().toString();
-                EventInfo event=new EventInfo(eventName,)
+                double latitude = getIntent().getDoubleExtra("lat", 0); // Default value as 0
+                double longitude = getIntent().getDoubleExtra("lon", 0); // Default value as 0
 
+                EventInfo event=new EventInfo(eventName,latitude,longitude,"Tony",
+                        briefDescription,fullDescription);
+                rootRef.setValue(event);
 
                 Intent intent = new Intent(CreateEventPage.this, MainActivity.class);
                 startActivity(intent);
