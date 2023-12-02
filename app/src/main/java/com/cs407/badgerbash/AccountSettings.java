@@ -32,7 +32,7 @@ public class AccountSettings extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
             Uri selectedImage = data.getData();
-            ImageView imageView = findViewById(R.id.pfp);
+            ImageView imageView = findViewById(R.id.EventImage);
             imageView.setImageURI(selectedImage);
         }
     }
