@@ -15,6 +15,9 @@ private GoogleMap mmap;
         setContentView(R.layout.activity_map);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_map);
+        mapFragment.getMapAsync(googleMap -> {
+            mmap = googleMap;
+        });
 
     }
 }
