@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/fullDescrip"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

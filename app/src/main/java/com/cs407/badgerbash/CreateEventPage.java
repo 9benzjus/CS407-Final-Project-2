@@ -65,7 +65,7 @@ public class CreateEventPage extends AppCompatActivity {
 
                 EventInfo event=new EventInfo(eventName,latitude,longitude,"Tony",
                         briefDescription,fullDescription);
-                rootRef.child("Tony").setValue(event);
+                rootRef.child("Tony").child("Created Events").setValue(event);
 
                 Intent intent = new Intent(CreateEventPage.this, MainActivity.class);
                 startActivity(intent);

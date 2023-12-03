@@ -45,11 +45,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setUpVertiOnClick(FrameLayout verti, EventInfo event){
+        String name=event.getName();
+        double lat=event.getLat();
+        double lon=event.getLon();
+        String createdBy=event.getCreatedBy();
+        String brief=event.getBriefDescription();
+        String full=event.getBriefDescription();
+        verti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EventDescriptionPage.class);
+                intent.putExtra("name",name);
+                intent.putExtra("lat",lat);
+                intent.putExtra("lon",lon);
+                intent.putExtra("createdBy",createdBy);
+                intent.putExtra("brief",brief);
+                intent.putExtra("full",full);
+                startActivity(intent);
+            }
+        });
+    }
+
+
     private void loadSignedUpEvents(){
         database = FirebaseDatabase.getInstance();
         usersRef = database.getReference("Users");
 
-        usersRef.child().addListenerForSingleValueEvent(new ValueEventListener() {
+        usersRef.child(Username).child("SignedUp").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
@@ -68,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     private void loadAllEvents(){
         database = FirebaseDatabase.getInstance();
         usersRef = database.getReference("Users");
@@ -75,13 +100,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    DataSnapshot eventsSnapshot = userSnapshot.child("events");
+                    DataSnapshot eventsSnapshot = userSnapshot.child("Created Events");
                     for (DataSnapshot eventSnapshot : eventsSnapshot.getChildren()) {
-                        EventInfo event = userSnapshot.getValue(EventInfo.class);
+                        EventInfo event = eventSnapshot.getValue(EventInfo.class);
                         // Add each event to the ScrollView
                         VertiLayoutContainer.removeAllViews();
                         FrameLayout vertiframe=addEventFrameLayout(event);
                         addViewToVerti(vertiframe);
+                        setUpVertiOnClick(vertiframe, event);
                     }
                 }
             }
