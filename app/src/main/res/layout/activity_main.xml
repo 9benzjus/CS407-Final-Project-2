@@ -22,56 +22,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="13dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
-
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Searchbox">
-
+        app:layout_constraintTop_toBottomOf="@+id/Searchbox"
+        app:layout_constraintVertical_bias="0.213">
 
         <LinearLayout
+            android:id="@+id/HoriLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:orientation="horizontal"></LinearLayout>
     </HorizontalScrollView>
 
     <ScrollView
         android:id="@+id/scrollView4"
         android:layout_width="409dp"
-        android:layout_height="400dp"
+        android:layout_height="370dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner1">
+        tools:layout_editor_absoluteY="295dp">
 
         <LinearLayout
+            android:id="@+id/VertiLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" />
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="409dp"
         android:layout_height="59dp"
         android:layout_marginStart="1dp"
@@ -86,27 +75,39 @@
         <Button
             android:id="@+id/CreateEventButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cornerRadius="0dp"
-            android:text="Create Event " />
+            android:text="Create Event "
+            app:cornerRadius="0dp" />
 
         <Button
             android:id="@+id/FriendsButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cornerRadius="0dp"
-            android:text="Friends" />
+            android:text="Friends"
+            app:cornerRadius="0dp" />
 
         <Button
             android:id="@+id/SettingButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cornerRadius="0dp"
-            android:text="Settings" />
+            android:text="Settings"
+            app:cornerRadius="0dp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/Refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cornerRadius="4dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="13dp"
+        android:text="Refresh"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

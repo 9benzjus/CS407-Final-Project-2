@@ -27,4 +27,28 @@ public class EventInfo {
         this.fullDescription=fullDescription;
 //        this.imageUri=imageUri;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public String getBriefDescription() {
+        return briefDescription;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
 }

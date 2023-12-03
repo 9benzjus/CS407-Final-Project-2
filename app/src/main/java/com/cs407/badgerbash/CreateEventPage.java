@@ -52,7 +52,7 @@ public class CreateEventPage extends AppCompatActivity {
             }
         });
 
-        rootRef= FirebaseDatabase.getInstance().getReference().child("Tony");
+        rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
         Button createEvtButton=findViewById(R.id.CreateEvtButton);
         createEvtButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +65,7 @@ public class CreateEventPage extends AppCompatActivity {
 
                 EventInfo event=new EventInfo(eventName,latitude,longitude,"Tony",
                         briefDescription,fullDescription);
-                rootRef.setValue(event);
+                rootRef.child("Tony").setValue(event);
 
                 Intent intent = new Intent(CreateEventPage.this, MainActivity.class);
                 startActivity(intent);
