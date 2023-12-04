@@ -3,6 +3,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;
-    Button buttonLogin;
+    Button buttonLogin, buttonReset;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
@@ -45,8 +46,19 @@ public class Login extends AppCompatActivity {
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
+        buttonReset = findViewById(R.id.resetNow);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
+
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ResetPassword.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +75,10 @@ public class Login extends AppCompatActivity {
                 String email, password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Username", email);
+                editor.apply(); // Apply the changes to SharedPreferences
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
