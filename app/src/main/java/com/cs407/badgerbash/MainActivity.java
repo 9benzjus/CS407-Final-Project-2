@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout HoriLayoutContainer;
     private FirebaseDatabase database;
     private DatabaseReference usersRef;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         VertiLayoutContainer = findViewById(R.id.VertiLayout);
         HoriLayoutContainer = findViewById(R.id.HoriLayout);
 
-        //loadSignedUpEvents();
+        loadSignedUpEvents();
         loadAllEvents();
 
         Button createEventButton = findViewById(R.id.CreateEventButton);
@@ -43,19 +40,8 @@ public class MainActivity extends AppCompatActivity {
         setUpFriendsButton(friendsButton);
         Button settingsButton = findViewById(R.id.SettingButton);
         setUpSettingsButton(settingsButton);
-        Button Signoutbutton = findViewById(R.id.signout);
 //        Button refreshButton=findViewById(R.id.Refresh);
 //        setUpRefreshButton(refreshButton);
-
-        Signoutbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
     }
 
@@ -82,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /*private void loadSignedUpEvents(){
+    private void loadSignedUpEvents(){
         database = FirebaseDatabase.getInstance();
         usersRef = database.getReference("Users");
 
@@ -102,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 // Handle possible errors
             }
         });
-    }*/
+    }
 
 
 
