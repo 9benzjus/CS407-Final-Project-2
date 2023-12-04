@@ -21,19 +21,37 @@
             android:name=".ResetPassword"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MapSelect"
+            android:name=".AccountSettings"
             android:exported="false" />
         <activity
-            android:name=".Map"
+            android:name=".Chat"
             android:exported="false" />
         <activity
             android:name=".CreateEventPage"
             android:exported="false" />
         <activity
             android:name=".EventDescriptionPage"
+            android:exported="false" />
+        <activity
+            android:name=".EventInfo"
+            android:exported="false" />
+        <activity
+            android:name=".FriendsList"
+            android:exported="false" />
+        <activity
+            android:name=".Map"
+            android:exported="false" />
+        <activity
+            android:name=".MapSelect"
+            android:exported="false" />
+        <activity
+            android:name=".Register"
+            android:exported="false" />
+        <activity
+            android:name=".Settings"
             android:exported="false" />
         <activity
             android:name=".Login"
