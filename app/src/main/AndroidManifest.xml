@@ -18,6 +18,12 @@
         android:theme="@style/Theme.BadgerBash"
         tools:targetApi="31">
         <activity
+            android:name=".Register"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
+            android:exported="false" />
+        <activity
             android:name=".MapSelect"
             android:exported="false" />
         <activity
