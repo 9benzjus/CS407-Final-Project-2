@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Database;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,10 +23,13 @@ public class CreateEventPage extends AppCompatActivity {
 
     private DatabaseReference rootRef;
     private Uri selectedImg;
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event_page);
+
+        sharedPreferences=getSharedPreferences("MyPrefs",MODE_PRIVATE);
 
         Button home = findViewById(R.id.CRHomeButton);
         setUpHomeButton(home);
@@ -58,14 +62,15 @@ public class CreateEventPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String eventName=name.getText().toString();
+                String createdBy=sharedPreferences.getString("Username","defaultUsername");
                 String briefDescription=brief.getText().toString();
                 String fullDescription=full.getText().toString();
                 double latitude = getIntent().getDoubleExtra("lat", 0); // Default value as 0
                 double longitude = getIntent().getDoubleExtra("lon", 0); // Default value as 0
 
-                EventInfo event=new EventInfo(eventName,latitude,longitude,"Tony",
+                EventInfo event=new EventInfo(eventName,latitude,longitude,createdBy,
                         briefDescription,fullDescription);
-                rootRef.child("Tony").child("Created Events").setValue(event);
+                rootRef.child(createdBy).child("Created Events").setValue(event);
 
                 Intent intent = new Intent(CreateEventPage.this, MainActivity.class);
                 startActivity(intent);
