@@ -3,6 +3,7 @@ package com.cs407.badgerbash;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -24,12 +25,15 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout HoriLayoutContainer;
     private FirebaseDatabase database;
     private DatabaseReference usersRef;
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         VertiLayoutContainer = findViewById(R.id.VertiLayout);
         HoriLayoutContainer = findViewById(R.id.HoriLayout);
+
+        sharedPreferences=getSharedPreferences("MyPrefs",MODE_PRIVATE);
 
         loadSignedUpEvents();
         loadAllEvents();
@@ -72,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         usersRef = database.getReference("Users");
 
-        usersRef.child(Username).child("SignedUp").addListenerForSingleValueEvent(new ValueEventListener() {
+        String username=sharedPreferences.getString("Username","defaultUsername");
+        usersRef.child(username).child("SignedUp").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
