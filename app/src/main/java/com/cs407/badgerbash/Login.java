@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;
-    Button buttonLogin;
+    Button buttonLogin, buttonReset;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
@@ -46,8 +46,19 @@ public class Login extends AppCompatActivity {
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
+        buttonReset = findViewById(R.id.resetNow);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
+
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ResetPassword.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

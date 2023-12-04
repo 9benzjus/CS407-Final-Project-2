@@ -43,7 +43,7 @@ public class ResetPassword extends AppCompatActivity {
             public void onClick(View v) {
                 strEmail = edtEmail.getText().toString().trim();
                 if (!TextUtils.isEmpty(strEmail)) {
-                    ResetPassword();
+                    setPassword();
                 } else {
                     edtEmail.setError("Email field can't be empty");
                 }
@@ -53,7 +53,7 @@ public class ResetPassword extends AppCompatActivity {
 
     }
 
-    private void ResetPassword() {
+    private void setPassword() {
         progressBar.setVisibility(View.VISIBLE);
         btnReset.setVisibility(View.INVISIBLE);
 
@@ -61,8 +61,8 @@ public class ResetPassword extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(ForgotPasswordActivity.this, "Reset Password link has been sent to your registered Email", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ForgotPasswordActivity.this, Login.class);
+                        Toast.makeText(ResetPassword.this, "Reset Password link has been sent to your registered Email", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ResetPassword.this, Login.class);
                         startActivity(intent);
                         finish();
                     }
@@ -70,7 +70,7 @@ public class ResetPassword extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ForgotPasswordActivity.this, "Error :- " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ResetPassword.this, "Error :- " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.INVISIBLE);
                         btnReset.setVisibility(View.VISIBLE);
                     }
