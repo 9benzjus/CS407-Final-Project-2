@@ -47,7 +47,7 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Click_to_login"
+        android:text="Click to login"
         android:id="@+id/loginNow"
         android:gravity="center"
         android:layout_marginTop="20dp"
