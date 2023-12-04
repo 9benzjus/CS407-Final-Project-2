@@ -62,7 +62,10 @@ public class CreateEventPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String eventName=name.getText().toString();
-                String createdBy=sharedPreferences.getString("Username","defaultUsername");
+                String email=sharedPreferences.getString("Username","defaultUsername");
+                int dotIndex = email.indexOf('.');
+                String username = email.substring(0, dotIndex);
+                String createdBy=username;
                 String briefDescription=brief.getText().toString();
                 String fullDescription=full.getText().toString();
                 double latitude = getIntent().getDoubleExtra("lat", 0); // Default value as 0

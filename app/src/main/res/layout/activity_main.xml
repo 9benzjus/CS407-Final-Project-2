@@ -13,12 +13,12 @@
         android:id="@+id/Searchbox"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
+        android:hint="Search events, locations"
         android:inputType="text"
-        android:text="Search for locations, event name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

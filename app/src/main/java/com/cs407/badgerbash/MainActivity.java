@@ -76,7 +76,10 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         usersRef = database.getReference("Users");
 
-        String username=sharedPreferences.getString("Username","defaultUsername");
+        String email=sharedPreferences.getString("Username","defaultUsername");
+        int dotIndex = email.indexOf('.');
+        String username = email.substring(0, dotIndex);
+
         usersRef.child(username).child("SignedUp").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
