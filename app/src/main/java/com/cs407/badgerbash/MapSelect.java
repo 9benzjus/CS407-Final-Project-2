@@ -46,8 +46,8 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapSelect.this, CreateEventPage.class);
-                intent.putExtra("lat",latLng.latitude);
-                intent.putExtra("lon",latLng.longitude);
+                intent.putExtra("lat",String.valueOf(latLng.latitude));
+                intent.putExtra("lon",String.valueOf(latLng.longitude));
                 intent.putExtra("eventName",eventName);
                 intent.putExtra("briefDescription",briefDescription);
                 intent.putExtra("fullDescription",fullDescription);
