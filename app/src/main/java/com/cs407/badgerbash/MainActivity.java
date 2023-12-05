@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,15 +45,39 @@ public class MainActivity extends AppCompatActivity {
         setUpFriendsButton(friendsButton);
         Button settingsButton = findViewById(R.id.SettingButton);
         setUpSettingsButton(settingsButton);
+        Button signoutButton=findViewById(R.id.signout);
+        setUpSignoutButton(signoutButton);
 //        Button refreshButton=findViewById(R.id.Refresh);
 //        setUpRefreshButton(refreshButton);
 
     }
 
+    private void setUpSignoutButton(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+
+    }
+
+    private void signOut() {
+
+        FirebaseAuth.getInstance().signOut();
+        // Clear the username from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("username"); // Use the same key that was used to store the username
+        editor.apply();
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+    }
+
     private void setUpVertiOnClick(FrameLayout verti, EventInfo event){
         String name=event.getName();
-        double lat=event.getLat();
-        double lon=event.getLon();
+        String lat=event.getLat();
+        String lon=event.getLon();
         String createdBy=event.getCreatedBy();
         String brief=event.getBriefDescription();
         String full=event.getBriefDescription();
@@ -110,7 +135,13 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     DataSnapshot eventsSnapshot = userSnapshot.child("Created Events");
                     for (DataSnapshot eventSnapshot : eventsSnapshot.getChildren()) {
-                        EventInfo event = eventSnapshot.getValue(EventInfo.class);
+                        String eventName = dataSnapshot.child("name").getValue(String.class);
+                        String briefDescription = dataSnapshot.child("briefDescription").getValue(String.class);
+                        String createdBy = dataSnapshot.child("createdBy").getValue(String.class);
+                        String fullDescription = dataSnapshot.child("fullDescription").getValue(String.class);
+                        String lat = dataSnapshot.child("lat").getValue(String.class);
+                        String lon = dataSnapshot.child("lon").getValue(String.class);
+                        EventInfo event=new EventInfo(eventName,lat,lon,createdBy,briefDescription,fullDescription);
                         // Add each event to the ScrollView
                         VertiLayoutContainer.removeAllViews();
                         FrameLayout vertiframe=addEventFrameLayout(event);
@@ -154,8 +185,8 @@ public class MainActivity extends AppCompatActivity {
         frameLayout.setPadding(10, 10, 10, 10);
 
         String name=event.getName();
-        double lat=event.getLat();
-        double lon=event.getLon();
+        String lat=event.getLat();
+        String lon=event.getLon();
         String createdBy=event.getCreatedBy();
         String brief=event.getBriefDescription();
         String full=event.getFullDescription();
@@ -164,9 +195,9 @@ public class MainActivity extends AppCompatActivity {
         TextView textView1 = new TextView(this);
         textView1.setText(name); // Set text from event data
         TextView textView2 = new TextView(this);
-        textView2.setText(String.valueOf(lat));
+        textView2.setText(lat);
         TextView textView3 = new TextView(this);
-        textView3.setText(String.valueOf(lon));
+        textView3.setText(lon);
         TextView textView4 = new TextView(this);
         textView4.setText(createdBy);
         TextView textView5 = new TextView(this);

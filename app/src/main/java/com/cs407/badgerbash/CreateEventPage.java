@@ -24,6 +24,9 @@ public class CreateEventPage extends AppCompatActivity {
     private DatabaseReference rootRef;
     private Uri selectedImg;
     private SharedPreferences sharedPreferences;
+    private EditText brief;
+    private EditText full;
+    private EditText name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +46,13 @@ public class CreateEventPage extends AppCompatActivity {
 //            }
 //        });
 
-        EditText brief=findViewById(R.id.Brief);
-        EditText full=findViewById(R.id.Full);
-        EditText name=findViewById(R.id.EvtName);
+        brief=findViewById(R.id.Brief);
+        full=findViewById(R.id.Full);
+        name=findViewById(R.id.EvtName);
 
         Button addLocationButton=findViewById(R.id.AddLocationButton);
-        addLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateEventPage.this, MapSelect.class);
-                startActivity(intent);
-            }
-        });
+        setAddLocationButton(addLocationButton);
+
 
         rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
         Button createEvtButton=findViewById(R.id.CreateEvtButton);
@@ -68,10 +66,10 @@ public class CreateEventPage extends AppCompatActivity {
                 String createdBy=username;
                 String briefDescription=brief.getText().toString();
                 String fullDescription=full.getText().toString();
-                double latitude = getIntent().getDoubleExtra("lat", 0); // Default value as 0
-                double longitude = getIntent().getDoubleExtra("lon", 0); // Default value as 0
+                String lat = getIntent().getStringExtra("lat");
+                String lon = getIntent().getStringExtra("lon");
 
-                EventInfo event=new EventInfo(eventName,latitude,longitude,createdBy,
+                EventInfo event=new EventInfo(eventName,lat,lon,createdBy,
                         briefDescription,fullDescription);
                 rootRef.child(createdBy).child("Created Events").setValue(event);
 
@@ -82,6 +80,24 @@ public class CreateEventPage extends AppCompatActivity {
 
 
 
+    }
+
+    private void setAddLocationButton(Button button){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateEventPage.this, MapSelect.class);
+                String eventName=name.getText().toString();
+                String briefDescription=brief.getText().toString();
+                String fullDescription=full.getText().toString();
+
+                intent.putExtra("eventName",eventName);
+                intent.putExtra("briefDescription",briefDescription);
+                intent.putExtra("fullDescription",fullDescription);
+
+                startActivity(intent);
+            }
+        });
     }
 
     private void setUpHomeButton(Button button){

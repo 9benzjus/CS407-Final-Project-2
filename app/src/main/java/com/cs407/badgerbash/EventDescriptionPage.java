@@ -23,8 +23,8 @@ public class EventDescriptionPage extends AppCompatActivity {
 
         Intent intent=getIntent();
         String name=intent.getStringExtra("name");
-        double lat=intent.getDoubleExtra("lat",0);
-        double lon=intent.getDoubleExtra("lon",0);
+        String lat=intent.getStringExtra("lat");
+        String lon=intent.getStringExtra("lon");
         String createdBy=intent.getStringExtra("createdBy");
         String brief=intent.getStringExtra("brief");
         String full=intent.getStringExtra("full");

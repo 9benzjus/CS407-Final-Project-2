@@ -1,7 +1,7 @@
 package com.cs407.badgerbash;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
+import android.widget.SearchView;
 
 import android.content.Intent;
 import android.location.Address;
@@ -34,6 +34,12 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
         mapSearchView=findViewById(R.id.mapSearch);
         SupportMapFragment mapFragment=(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
+        Intent intent = getIntent();
+        // Extract the data from the Intent
+        String eventName = intent.getStringExtra("eventName");
+        String briefDescription = intent.getStringExtra("briefDescription");
+        String fullDescription = intent.getStringExtra("fullDescription");
+
         Button confirmButton=findViewById(R.id.confirmButton);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +48,9 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
                 Intent intent = new Intent(MapSelect.this, CreateEventPage.class);
                 intent.putExtra("lat",latLng.latitude);
                 intent.putExtra("lon",latLng.longitude);
+                intent.putExtra("eventName",eventName);
+                intent.putExtra("briefDescription",briefDescription);
+                intent.putExtra("fullDescription",fullDescription);
                 startActivity(intent);
             }
         });

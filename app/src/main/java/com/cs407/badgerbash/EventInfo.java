@@ -5,8 +5,8 @@ import android.net.Uri;
 public class EventInfo {
     private String name;
 
-    private double lat;
-    private double lon;
+    private String lat;
+    private String lon;
     private String createdBy;
     private String briefDescription;
     private String fullDescription;
@@ -17,7 +17,7 @@ public class EventInfo {
 
     }
 
-    public EventInfo(String name, double lat, double lon, String createdBy, String briefDescription,
+    public EventInfo(String name, String lat, String lon, String createdBy, String briefDescription,
                      String fullDescription) {
         this.name = name;
         this.lat = lat;
@@ -32,11 +32,11 @@ public class EventInfo {
         return name;
     }
 
-    public double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public double getLon() {
+    public String getLon() {
         return lon;
     }
 
