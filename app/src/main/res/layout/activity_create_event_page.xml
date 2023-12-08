@@ -48,8 +48,8 @@
         android:layout_marginEnd="27dp"
         android:layout_marginBottom="14dp"
         android:ems="10"
+        android:hint="Brief Description"
         android:inputType="text"
-        android:text="Brief Description"
         app:layout_constraintBottom_toTopOf="@+id/Full"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -63,12 +63,13 @@
         android:layout_height="92dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="179dp"
+        android:layout_marginBottom="180dp"
         android:ems="10"
+        android:hint="Full Description"
         android:inputType="text"
-        android:text="Full Description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -114,9 +115,9 @@
         android:layout_marginTop="291dp"
         android:layout_marginBottom="315dp"
         android:ems="10"
+        android:hint="Event name"
         android:inputType="text"
         android:minHeight="48dp"
-        android:text="Event name"
         app:layout_constraintBottom_toTopOf="@+id/VertiLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -74,27 +75,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setUpVertiOnClick(FrameLayout verti, EventInfo event){
-        String name=event.getName();
-        String lat=event.getLat();
-        String lon=event.getLon();
-        String createdBy=event.getCreatedBy();
-        String brief=event.getBriefDescription();
-        String full=event.getBriefDescription();
-        verti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EventDescriptionPage.class);
-                intent.putExtra("name",name);
-                intent.putExtra("lat",lat);
-                intent.putExtra("lon",lon);
-                intent.putExtra("createdBy",createdBy);
-                intent.putExtra("brief",brief);
-                intent.putExtra("full",full);
-                startActivity(intent);
-            }
-        });
-    }
+
 
 
     private void loadSignedUpEvents(){
@@ -111,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     EventInfo event = userSnapshot.getValue(EventInfo.class);
                     // Add each event to the ScrollView
-                    FrameLayout horiframe=addEventFrameLayout(event);
-                    addViewToHori(horiframe);
+                    addEventToLayout(event);
                 }
             }
 
@@ -127,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loadAllEvents(){
+        VertiLayoutContainer.removeAllViews();
         database = FirebaseDatabase.getInstance();
         usersRef = database.getReference("Users");
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -135,18 +116,15 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     DataSnapshot eventsSnapshot = userSnapshot.child("Created Events");
                     for (DataSnapshot eventSnapshot : eventsSnapshot.getChildren()) {
-                        String eventName = dataSnapshot.child("name").getValue(String.class);
-                        String briefDescription = dataSnapshot.child("briefDescription").getValue(String.class);
-                        String createdBy = dataSnapshot.child("createdBy").getValue(String.class);
-                        String fullDescription = dataSnapshot.child("fullDescription").getValue(String.class);
-                        String lat = dataSnapshot.child("lat").getValue(String.class);
-                        String lon = dataSnapshot.child("lon").getValue(String.class);
+                        String eventName = eventSnapshot.child("name").getValue(String.class);
+                        String briefDescription = eventSnapshot.child("briefDescription").getValue(String.class);
+                        String createdBy = eventSnapshot.child("createdBy").getValue(String.class);
+                        String fullDescription = eventSnapshot.child("fullDescription").getValue(String.class);
+                        String lat = eventSnapshot.child("lat").getValue(String.class);
+                        String lon = eventSnapshot.child("lon").getValue(String.class);
                         EventInfo event=new EventInfo(eventName,lat,lon,createdBy,briefDescription,fullDescription);
                         // Add each event to the ScrollView
-                        VertiLayoutContainer.removeAllViews();
-                        FrameLayout vertiframe=addEventFrameLayout(event);
-                        addViewToVerti(vertiframe);
-                        setUpVertiOnClick(vertiframe, event);
+                        addEventToLayout(event);
                     }
                 }
             }
@@ -154,6 +132,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Handle possible errors
+            }
+        });
+    }
+
+    private void addEventToLayout(EventInfo event){
+        LinearLayout VertiLayout = findViewById(R.id.VertiLayout);
+        String name=event.getName();
+        String lat=event.getLat();
+        String lon=event.getLon();
+        String createdBy=event.getCreatedBy();
+        String brief=event.getBriefDescription();
+        String full=event.getBriefDescription();
+
+        View eventView = LayoutInflater.from(this).inflate(R.layout.loaded_event_box, VertiLayout, false);
+
+        TextView eventName = eventView.findViewById(R.id.EventName);
+        TextView eventDescription = eventView.findViewById(R.id.briefDesc);
+
+        eventName.setText(event.getName());
+        eventDescription.setText(event.getBriefDescription());
+        VertiLayout.addView(eventView);
+        eventView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,EventDescriptionPage.class);
+                intent.putExtra("name",name);
+                intent.putExtra("lat",lat);
+                intent.putExtra("lon",lon);
+                intent.putExtra("createdBy",createdBy);
+                intent.putExtra("brief",brief);
+                intent.putExtra("full",full);
+                startActivity(intent);
             }
         });
     }
@@ -170,52 +180,52 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-    private FrameLayout addEventFrameLayout(EventInfo event) {
-        // Create a new FrameLayout with layout parameters
-        FrameLayout frameLayout = new FrameLayout(this);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, // Width
-                FrameLayout.LayoutParams.WRAP_CONTENT  // Height
-        );
-        layoutParams.setMargins(16, 16, 16, 16); // Example margins
-        frameLayout.setLayoutParams(layoutParams);
-
-        // Set background, padding, etc.
-        frameLayout.setBackgroundColor(Color.LTGRAY); // Example background color
-        frameLayout.setPadding(10, 10, 10, 10);
-
-        String name=event.getName();
-        String lat=event.getLat();
-        String lon=event.getLon();
-        String createdBy=event.getCreatedBy();
-        String brief=event.getBriefDescription();
-        String full=event.getFullDescription();
-
-        // Add child views to the FrameLayout
-        TextView textView1 = new TextView(this);
-        textView1.setText(name); // Set text from event data
-        TextView textView2 = new TextView(this);
-        textView2.setText(lat);
-        TextView textView3 = new TextView(this);
-        textView3.setText(lon);
-        TextView textView4 = new TextView(this);
-        textView4.setText(createdBy);
-        TextView textView5 = new TextView(this);
-        textView5.setText(brief);
-        TextView textView6 = new TextView(this);
-        textView6.setText(full);
-        // Configure textView (style, layout params, etc.)
-
-        frameLayout.addView(textView1);
-        frameLayout.addView(textView2);
-        frameLayout.addView(textView3);
-        frameLayout.addView(textView4);
-        frameLayout.addView(textView5);
-        frameLayout.addView(textView6);
-
-        // Add the FrameLayout to the LinearLayout
-        return frameLayout;
-    }
+//    private FrameLayout addEventFrameLayout(EventInfo event) {
+//        // Create a new FrameLayout with layout parameters
+//        FrameLayout frameLayout = new FrameLayout(this);
+//        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+//                FrameLayout.LayoutParams.MATCH_PARENT, // Width
+//                FrameLayout.LayoutParams.WRAP_CONTENT  // Height
+//        );
+//        layoutParams.setMargins(16, 16, 16, 16); // Example margins
+//        frameLayout.setLayoutParams(layoutParams);
+//
+//        // Set background, padding, etc.
+//        frameLayout.setBackgroundColor(Color.LTGRAY); // Example background color
+//        frameLayout.setPadding(10, 10, 10, 10);
+//
+//        String name=event.getName();
+//        String lat=event.getLat();
+//        String lon=event.getLon();
+//        String createdBy=event.getCreatedBy();
+//        String brief=event.getBriefDescription();
+//        String full=event.getFullDescription();
+//
+//        // Add child views to the FrameLayout
+//        TextView textView1 = new TextView(this);
+//        textView1.setText(name); // Set text from event data
+//        TextView textView2 = new TextView(this);
+//        textView2.setText(lat);
+//        TextView textView3 = new TextView(this);
+//        textView3.setText(lon);
+//        TextView textView4 = new TextView(this);
+//        textView4.setText(createdBy);
+//        TextView textView5 = new TextView(this);
+//        textView5.setText(brief);
+//        TextView textView6 = new TextView(this);
+//        textView6.setText(full);
+//        // Configure textView (style, layout params, etc.)
+//
+//        frameLayout.addView(textView1);
+//        frameLayout.addView(textView2);
+//        frameLayout.addView(textView3);
+//        frameLayout.addView(textView4);
+//        frameLayout.addView(textView5);
+//        frameLayout.addView(textView6);
+//
+//        // Add the FrameLayout to the LinearLayout
+//        return frameLayout;
+//    }
 
     private void addViewToVerti(FrameLayout frameLayout){
         VertiLayoutContainer.addView(frameLayout);
