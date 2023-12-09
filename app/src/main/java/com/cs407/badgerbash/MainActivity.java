@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         String lon=event.getLon();
         String createdBy=event.getCreatedBy();
         String brief=event.getBriefDescription();
-        String full=event.getBriefDescription();
+        String full=event.getFullDescription();
 
         View eventView = LayoutInflater.from(this).inflate(R.layout.loaded_event_box, VertiLayout, false);
 
