@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 signOut();
             }
         });
-
     }
 
     private void signOut() {

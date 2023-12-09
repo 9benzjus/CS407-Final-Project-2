@@ -37,8 +37,11 @@ public class EventDescriptionPage extends AppCompatActivity {
         Button locationButton=findViewById(R.id.LocationButton);
         setUpLocationButton(locationButton);
 
-        TextView description=findViewById(R.id.fullDescrip);
-        description.setText(full);
+        TextView nameText=findViewById(R.id.NameText);
+        nameText.setText(name);
+
+        TextView fullDescription=findViewById(R.id.FullDescrip);
+        fullDescription.setText(full);
     }
 
     private void setUpLocationButton(Button button){

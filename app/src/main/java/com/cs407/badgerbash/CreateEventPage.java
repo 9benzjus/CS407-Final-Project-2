@@ -80,18 +80,7 @@ public class CreateEventPage extends AppCompatActivity {
         rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
         Button createEvtButton=findViewById(R.id.CreateEvtButton);
 
-        DatabaseReference events = rootRef.child(username).child("Created Events");
-        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                eventCount = (int) snapshot.getChildrenCount();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        getNumEvents();
         createEvtButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +103,21 @@ public class CreateEventPage extends AppCompatActivity {
 
 
 
+    }
+
+    private void getNumEvents(){
+        DatabaseReference events = rootRef.child(username).child("Created Events");
+        events.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                eventCount = (int) snapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void setAddLocationButton(Button button){
