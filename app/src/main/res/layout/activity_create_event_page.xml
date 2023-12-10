@@ -28,17 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CRHomeButton" />
 
-    <ImageView
-        android:id="@+id/EventImage"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CRIEIButton"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <EditText
         android:id="@+id/Brief"
         android:layout_width="0dp"
@@ -78,47 +67,43 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="27dp"
         android:text="Add Location"
         app:cornerRadius="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/VertiLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Full"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/Full" />
 
-    <LinearLayout
-        android:id="@+id/VertiLayout"
+    <Button
+        android:id="@+id/CreateEvtButton"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="horizontal"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:text="Create"
+        app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EvtName">
-
-        <Button
-            android:id="@+id/CreateEvtButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Create"
-            app:cornerRadius="0dp" />
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/EvtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="291dp"
-        android:layout_marginBottom="315dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="200dp"
         android:ems="10"
         android:hint="Event name"
         android:inputType="text"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/VertiLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/TimeSetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="275dp"
+        android:text="Set Event Time"
+        app:cornerRadius="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

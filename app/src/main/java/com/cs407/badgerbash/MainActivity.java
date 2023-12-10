@@ -1,5 +1,6 @@
 package com.cs407.badgerbash;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +20,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,9 +54,20 @@ public class MainActivity extends AppCompatActivity {
         setUpSettingsButton(settingsButton);
         Button signoutButton=findViewById(R.id.signout);
         setUpSignoutButton(signoutButton);
+        Button refreshButton=findViewById(R.id.Refresh);
+        setUpRefreshButton(refreshButton);
 //        Button refreshButton=findViewById(R.id.Refresh);
 //        setUpRefreshButton(refreshButton);
 
+    }
+
+    private void setUpRefreshButton(Button refreshButton) {
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadAllEvents();
+            }
+        });
     }
 
     private void setUpSignoutButton(Button button) {
@@ -111,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         usersRef = database.getReference("Users");
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     DataSnapshot eventsSnapshot = userSnapshot.child("Created Events");
                     for (DataSnapshot eventSnapshot : eventsSnapshot.getChildren()) {
@@ -121,7 +138,21 @@ public class MainActivity extends AppCompatActivity {
                         String fullDescription = eventSnapshot.child("fullDescription").getValue(String.class);
                         String lat = eventSnapshot.child("lat").getValue(String.class);
                         String lon = eventSnapshot.child("lon").getValue(String.class);
-                        EventInfo event=new EventInfo(eventName,lat,lon,createdBy,briefDescription,fullDescription);
+                        String selectedTime=eventSnapshot.child("selectedTime").getValue(String.class);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                        try {
+                            Date eventDate = dateFormat.parse(selectedTime);
+                            Date currentDate = new Date();
+
+                            if (eventDate != null && eventDate.before(currentDate)) {
+                                // The event is in the past, delete it
+                                eventSnapshot.getRef().removeValue();
+                                continue;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        EventInfo event=new EventInfo(eventName,lat,lon,createdBy,briefDescription,fullDescription,selectedTime);
                         // Add each event to the ScrollView
                         addEventToLayout(event);
                     }
@@ -143,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         String createdBy=event.getCreatedBy();
         String brief=event.getBriefDescription();
         String full=event.getFullDescription();
+        String selectedTime= event.getSelectedTime();
 
         View eventView = LayoutInflater.from(this).inflate(R.layout.loaded_event_box, VertiLayout, false);
 
@@ -162,69 +194,13 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("createdBy",createdBy);
                 intent.putExtra("brief",brief);
                 intent.putExtra("full",full);
+                intent.putExtra("selectedTime",selectedTime);
                 startActivity(intent);
             }
         });
     }
 
-//    private void setUpRefreshButton(Button button) {
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                linearLayoutContainer.removeAllViews();
-//                loadAllEvents();
-//            }
-//        });
-//
-//    }
 
-
-//    private FrameLayout addEventFrameLayout(EventInfo event) {
-//        // Create a new FrameLayout with layout parameters
-//        FrameLayout frameLayout = new FrameLayout(this);
-//        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-//                FrameLayout.LayoutParams.MATCH_PARENT, // Width
-//                FrameLayout.LayoutParams.WRAP_CONTENT  // Height
-//        );
-//        layoutParams.setMargins(16, 16, 16, 16); // Example margins
-//        frameLayout.setLayoutParams(layoutParams);
-//
-//        // Set background, padding, etc.
-//        frameLayout.setBackgroundColor(Color.LTGRAY); // Example background color
-//        frameLayout.setPadding(10, 10, 10, 10);
-//
-//        String name=event.getName();
-//        String lat=event.getLat();
-//        String lon=event.getLon();
-//        String createdBy=event.getCreatedBy();
-//        String brief=event.getBriefDescription();
-//        String full=event.getFullDescription();
-//
-//        // Add child views to the FrameLayout
-//        TextView textView1 = new TextView(this);
-//        textView1.setText(name); // Set text from event data
-//        TextView textView2 = new TextView(this);
-//        textView2.setText(lat);
-//        TextView textView3 = new TextView(this);
-//        textView3.setText(lon);
-//        TextView textView4 = new TextView(this);
-//        textView4.setText(createdBy);
-//        TextView textView5 = new TextView(this);
-//        textView5.setText(brief);
-//        TextView textView6 = new TextView(this);
-//        textView6.setText(full);
-//        // Configure textView (style, layout params, etc.)
-//
-//        frameLayout.addView(textView1);
-//        frameLayout.addView(textView2);
-//        frameLayout.addView(textView3);
-//        frameLayout.addView(textView4);
-//        frameLayout.addView(textView5);
-//        frameLayout.addView(textView6);
-//
-//        // Add the FrameLayout to the LinearLayout
-//        return frameLayout;
-//    }
 
     private void addViewToVerti(FrameLayout frameLayout){
         VertiLayoutContainer.addView(frameLayout);

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 public class EventDescriptionPage extends AppCompatActivity {
 
     private DatabaseReference rootRef;
@@ -28,7 +30,8 @@ public class EventDescriptionPage extends AppCompatActivity {
         String createdBy=intent.getStringExtra("createdBy");
         String brief=intent.getStringExtra("brief");
         String full=intent.getStringExtra("full");
-        event=new EventInfo(name,lat,lon,createdBy,brief,full);
+        String selectedTime=intent.getStringExtra("selectedTime");
+        event=new EventInfo(name,lat,lon,createdBy,brief,full,selectedTime);
 
         Button homeButton=findViewById(R.id.HomeButton);
         setUpHomeButton(homeButton);
@@ -38,10 +41,13 @@ public class EventDescriptionPage extends AppCompatActivity {
         setUpLocationButton(locationButton);
 
         TextView nameText=findViewById(R.id.NameText);
-        nameText.setText(name);
+        nameText.setText("Event Name:\n"+name);
 
         TextView fullDescription=findViewById(R.id.FullDescrip);
-        fullDescription.setText(full);
+        fullDescription.setText("Event Description:\n"+full);
+
+        TextView timeTxt=findViewById(R.id.TimeTxt);
+        timeTxt.setText("Event Time: \n"+selectedTime);
     }
 
     private void setUpLocationButton(Button button){
@@ -55,6 +61,7 @@ public class EventDescriptionPage extends AppCompatActivity {
                 intent.putExtra("createdBy",event.getCreatedBy());
                 intent.putExtra("brief",event.getBriefDescription());
                 intent.putExtra("full",event.getFullDescription());
+                intent.putExtra("selectedTime",event.getSelectedTime());
                 startActivity(intent);
             }
         });

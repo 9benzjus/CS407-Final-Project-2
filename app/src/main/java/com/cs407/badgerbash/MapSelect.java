@@ -36,6 +36,7 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
 
         Intent intent = getIntent();
         // Extract the data from the Intent
+        String selectedTime=intent.getStringExtra("selectedTime");
         String eventName = intent.getStringExtra("eventName");
         String briefDescription = intent.getStringExtra("briefDescription");
         String fullDescription = intent.getStringExtra("fullDescription");
@@ -51,6 +52,7 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
                 intent.putExtra("eventName",eventName);
                 intent.putExtra("briefDescription",briefDescription);
                 intent.putExtra("fullDescription",fullDescription);
+                intent.putExtra("selectedTime",selectedTime);
                 startActivity(intent);
             }
         });

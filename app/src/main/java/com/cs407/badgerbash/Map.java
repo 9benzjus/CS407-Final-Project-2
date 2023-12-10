@@ -35,7 +35,8 @@ private GoogleMap mmap;
         String createdBy=intent.getStringExtra("createdBy");
         String brief=intent.getStringExtra("brief");
         String full=intent.getStringExtra("full");
-        event=new EventInfo(name,lat,lon,createdBy,brief,full);
+        String selectedTime= intent.getStringExtra("selectedTime");
+        event=new EventInfo(name,lat,lon,createdBy,brief,full,selectedTime);
 
         eventDestination = new LatLng(Double.parseDouble(event.getLat()), Double.parseDouble(event.getLon()));
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

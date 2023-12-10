@@ -4,17 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Database;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.Firebase;
@@ -23,6 +28,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class CreateEventPage extends AppCompatActivity {
 
@@ -33,6 +42,7 @@ public class CreateEventPage extends AppCompatActivity {
 
     private String username;
     private int eventCount;
+    private String selectedTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,20 +52,24 @@ public class CreateEventPage extends AppCompatActivity {
 
         Button home = findViewById(R.id.CRHomeButton);
         setUpHomeButton(home);
+        Button btnPickTime = findViewById(R.id.TimeSetButton);
 
-        Button insertEventImgButton = findViewById(R.id.CRIEIButton);
-//        insertEventImgButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(intent, 1);
-//            }
-//        });
+        btnPickTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the time picker dialog
+                showDatePickerDialog();
+            }
+        });
+
 
         Intent intent=getIntent();
         brief=findViewById(R.id.Brief);
         full=findViewById(R.id.Full);
         name=findViewById(R.id.EvtName);
+        if (intent.hasExtra("selectedTime")){
+            selectedTime=intent.getStringExtra("selectedTime");
+        }
         if (intent.hasExtra("eventName")) {
             String eventName = intent.getStringExtra("eventName");
             name.setText(eventName);
@@ -92,7 +106,7 @@ public class CreateEventPage extends AppCompatActivity {
                 String lon = getIntent().getStringExtra("lon");
 
                 EventInfo event=new EventInfo(eventName,lat,lon,createdBy,
-                        briefDescription,fullDescription);
+                        briefDescription,fullDescription,selectedTime);
 
                 rootRef.child(createdBy).child("Created Events").child("Event"+eventCount).setValue(event);
 
@@ -103,6 +117,43 @@ public class CreateEventPage extends AppCompatActivity {
 
 
 
+    }
+
+    private void showDatePickerDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        new DatePickerDialog(CreateEventPage.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                // Now show the time picker
+                showTimePickerDialog(calendar);
+            }
+        }, year, month, day).show();
+    }
+
+    private void showTimePickerDialog(Calendar calendar) {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        new TimePickerDialog(CreateEventPage.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+
+                // Format the datetime and use it as needed
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                selectedTime = dateFormat.format(calendar.getTime());
+                // You can display or store the selectedDateTime
+            }
+        }, hour, minute, DateFormat.is24HourFormat(this)).show();
     }
 
     private void getNumEvents(){
@@ -132,6 +183,7 @@ public class CreateEventPage extends AppCompatActivity {
                 intent.putExtra("eventName",eventName);
                 intent.putExtra("briefDescription",briefDescription);
                 intent.putExtra("fullDescription",fullDescription);
+                intent.putExtra("selectedTime",selectedTime);
 
                 startActivity(intent);
             }
@@ -147,15 +199,4 @@ public class CreateEventPage extends AppCompatActivity {
             }
         });
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
-//            selectedImg = data.getData();
-//            ImageView imageView = findViewById(R.id.EventImage);
-//            imageView.setImageURI(selectedImg);
-//        }
-//    }
-
 }

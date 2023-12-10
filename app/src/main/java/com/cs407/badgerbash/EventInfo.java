@@ -10,6 +10,7 @@ public class EventInfo {
     private String createdBy;
     private String briefDescription;
     private String fullDescription;
+    private String selectedTime;
 //    private Uri imageUri;
 
     // Constructors
@@ -18,13 +19,14 @@ public class EventInfo {
     }
 
     public EventInfo(String name, String lat, String lon, String createdBy, String briefDescription,
-                     String fullDescription) {
+                     String fullDescription, String selectedTime) {
         this.name = name;
         this.lat = lat;
         this.lon= lon;
         this.createdBy = createdBy;
         this.briefDescription=briefDescription;
         this.fullDescription=fullDescription;
+        this.selectedTime=selectedTime;
 //        this.imageUri=imageUri;
     }
 
@@ -50,5 +52,8 @@ public class EventInfo {
 
     public String getFullDescription() {
         return fullDescription;
+    }
+    public String getSelectedTime(){
+        return selectedTime;
     }
 }
