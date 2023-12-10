@@ -10,33 +10,41 @@
         android:id="@+id/textViewSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="41dp"
         android:text="Settings"
         android:textSize="50dp"
-        tools:layout_editor_absoluteX="188dp"
-        tools:layout_editor_absoluteY="34dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/settingsBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="34dp"
         android:text="Back"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="34dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/accountButton"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="74dp"
         android:text="Account"
-        tools:layout_editor_absoluteX="120dp"
-        tools:layout_editor_absoluteY="175dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSettings" />
 
     <Button
         android:id="@+id/AddTagsButton"
         android:layout_width="170dp
 "
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:text="Notification"
-        tools:layout_editor_absoluteX="120dp"
-        tools:layout_editor_absoluteY="267dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
