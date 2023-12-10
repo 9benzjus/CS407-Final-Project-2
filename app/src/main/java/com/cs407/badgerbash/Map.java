@@ -3,6 +3,7 @@ package com.cs407.badgerbash;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -65,6 +66,18 @@ private GoogleMap mmap;
                 intent1.putExtra("brief",event.getBriefDescription());
                 intent1.putExtra("full",event.getFullDescription());
                 startActivity(intent1);
+            }
+        });
+
+        directionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uri = "google.navigation:q=" + eventDestination.latitude+ "," + eventDestination.longitude;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
 
