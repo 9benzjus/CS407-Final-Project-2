@@ -25,6 +25,9 @@ public class ResetPassword extends AppCompatActivity {
     FirebaseAuth mAuth;
     String strEmail;
 
+    Button bckLogin;
+    Button bckSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +35,28 @@ public class ResetPassword extends AppCompatActivity {
 
         //Initializaton
         btnReset = findViewById(R.id.btn_reset);
+        bckLogin = findViewById(R.id.goback);
+        bckSettings = findViewById(R.id.gobacktosettings);
         edtEmail = findViewById(R.id.email);
         progressBar = findViewById(R.id.progressBar);
+
+        if (getIntent().getStringExtra("PREVIOUS_ACTIVITY").equals("Login")){
+            bckSettings.setVisibility(View.INVISIBLE);
+        }
+        bckSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Settings.class);
+                startActivity(intent);
+            }
+        });
+        bckLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
