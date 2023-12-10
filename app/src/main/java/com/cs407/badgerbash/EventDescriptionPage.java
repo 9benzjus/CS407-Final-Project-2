@@ -49,6 +49,12 @@ public class EventDescriptionPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EventDescriptionPage.this, Map.class);
+                intent.putExtra("name",event.getName());
+                intent.putExtra("lat",event.getLat());
+                intent.putExtra("lon", event.getLon());
+                intent.putExtra("createdBy",event.getCreatedBy());
+                intent.putExtra("brief",event.getBriefDescription());
+                intent.putExtra("full",event.getFullDescription());
                 startActivity(intent);
             }
         });
