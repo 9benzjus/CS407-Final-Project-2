@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         setUpSignoutButton(signoutButton);
         Button refreshButton=findViewById(R.id.Refresh);
         setUpRefreshButton(refreshButton);
-//        Button refreshButton=findViewById(R.id.Refresh);
-//        setUpRefreshButton(refreshButton);
 
     }
 
