@@ -28,10 +28,10 @@
 
     <ScrollView
         android:id="@+id/scrollView4"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
         android:layout_marginBottom="66dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,14 +65,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Create Event "
-            app:cornerRadius="0dp" />
-
-        <Button
-            android:id="@+id/FriendsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Friends"
             app:cornerRadius="0dp" />
 
         <Button

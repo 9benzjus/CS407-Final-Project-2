@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         Button createEventButton = findViewById(R.id.CreateEventButton);
         setUpCreatEventButton(createEventButton);
-        Button friendsButton = findViewById(R.id.FriendsButton);
-        setUpFriendsButton(friendsButton);
         Button settingsButton = findViewById(R.id.SettingButton);
         setUpSettingsButton(settingsButton);
         Button signoutButton=findViewById(R.id.signout);
@@ -221,16 +219,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setUpFriendsButton(Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FriendsList.class);
-                startActivity(intent);
-            }
-        });
-
-    }
 
     private void setUpSettingsButton(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
