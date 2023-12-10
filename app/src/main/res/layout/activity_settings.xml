@@ -27,24 +27,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/accountButton"
-        android:layout_width="170dp"
+    <TextView
+        android:id="@+id/settingsEmailTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="74dp"
-        android:text="Account"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSettings" />
+        android:text="TextView"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="@id/settingsBackButton"
+        app:layout_constraintTop_toBottomOf="@id/settingsBackButton"
+        android:layout_marginTop="100dp"/>
 
     <Button
-        android:id="@+id/AddTagsButton"
-        android:layout_width="170dp
-"
+        android:id="@+id/settingsChangePassword"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Notification"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Change Password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="339dp" />
+
+
+    <!--    <Button-->
+<!--        android:id="@+id/accountButton"-->
+<!--        android:layout_width="170dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="74dp"-->
+<!--        android:text="Account"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewSettings" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/AddTagsButton"-->
+<!--        android:layout_width="170dp-->
+<!--"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="44dp"-->
+<!--        android:text="Notification"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/accountButton" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
