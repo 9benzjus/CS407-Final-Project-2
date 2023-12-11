@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         EventInfo event=new EventInfo(eventName,lat,lon,createdBy,briefDescription,fullDescription,selectedTime);
                         // Add each event to the ScrollView
                         addEventToLayout(event);
+
                     }
                 }
             }

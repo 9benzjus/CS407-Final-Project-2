@@ -3,6 +3,7 @@ package com.cs407.badgerbash;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +18,14 @@ import org.w3c.dom.Text;
 public class EventDescriptionPage extends AppCompatActivity {
 
     private DatabaseReference rootRef;
+    FirebaseDatabase database;
+    private SharedPreferences sharedPreferences;
     EventInfo event;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_description_page);
+        sharedPreferences=getSharedPreferences("MyPrefs",MODE_PRIVATE);
 
         Intent intent=getIntent();
         String name=intent.getStringExtra("name");
@@ -81,14 +85,19 @@ public class EventDescriptionPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EventDescriptionPage.this, MainActivity.class);
-                //addToSignedUp();
+                addToSignedUp();
                 startActivity(intent);
             }
         });
     }
 
-    /*private void addToSignedUp(){
+    private void addToSignedUp(){
         rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
-        rootRef.child(Username).child("SignedUp").setValue(event);
-    }*/
+        String email=sharedPreferences.getString("Username","defaultUsername");
+        int dotIndex = email.indexOf('.');
+        String username = email.substring(0, dotIndex);
+        rootRef.child(username).child("SignedUp").setValue(event);
+        Intent intent = new Intent(EventDescriptionPage.this, MainActivity.class);
+        startActivity(intent);
+    }
 }
