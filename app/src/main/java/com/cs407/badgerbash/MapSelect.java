@@ -1,6 +1,8 @@
 package com.cs407.badgerbash;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
 import android.widget.SearchView;
 
 import android.content.Intent;
@@ -46,6 +48,7 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(MapSelect.this, CreateEventPage.class);
                 intent.putExtra("lat",String.valueOf(latLng.latitude));
                 intent.putExtra("lon",String.valueOf(latLng.longitude));
@@ -57,6 +60,15 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+        setUpMap();
+
+        mapFragment.getMapAsync(MapSelect.this);
+
+
+    }
+
+
+    private void setUpMap(){
         mapSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -67,6 +79,9 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
                     Geocoder geocoder=new Geocoder(MapSelect.this);
                     try{
                         addressList=geocoder.getFromLocationName(location,1 );
+                        if(addressList==null){
+                            Intent intent=new Intent(MapSelect.this, MapSelect.class   );
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -83,9 +98,6 @@ public class MapSelect extends AppCompatActivity implements OnMapReadyCallback {
                 return false;
             }
         });
-        mapFragment.getMapAsync(MapSelect.this);
-
-
     }
 
     @Override

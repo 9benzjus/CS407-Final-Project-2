@@ -101,10 +101,30 @@ public class MainActivity extends AppCompatActivity {
         usersRef.child(username).child("SignedUp").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    EventInfo event = userSnapshot.getValue(EventInfo.class);
+                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                    String eventName = eventSnapshot.child("name").getValue(String.class);
+                    String briefDescription = eventSnapshot.child("briefDescription").getValue(String.class);
+                    String createdBy = eventSnapshot.child("createdBy").getValue(String.class);
+                    String fullDescription = eventSnapshot.child("fullDescription").getValue(String.class);
+                    String lat = eventSnapshot.child("lat").getValue(String.class);
+                    String lon = eventSnapshot.child("lon").getValue(String.class);
+                    String selectedTime=eventSnapshot.child("selectedTime").getValue(String.class);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                    try {
+                        Date eventDate = dateFormat.parse(selectedTime);
+                        Date currentDate = new Date();
+
+                        if (eventDate != null && eventDate.before(currentDate)) {
+                            // The event is in the past, delete it
+                            eventSnapshot.getRef().removeValue();
+                            continue;
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    EventInfo event=new EventInfo(eventName,lat,lon,createdBy,briefDescription,fullDescription,selectedTime);
                     // Add each event to the ScrollView
-                    addEventToLayout(event);
+                    addEventToHori(event);
                 }
             }
 
@@ -162,6 +182,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void addEventToHori(EventInfo event){
+        LinearLayout horiLayout = findViewById(R.id.HoriLayout);
+        String name=event.getName();
+        String lat=event.getLat();
+        String lon=event.getLon();
+        String createdBy=event.getCreatedBy();
+        String brief=event.getBriefDescription();
+        String full=event.getFullDescription();
+        String selectedTime= event.getSelectedTime();
+
+        View eventView = LayoutInflater.from(this).inflate(R.layout.loaded_event_box, horiLayout, false);
+
+        TextView eventName = eventView.findViewById(R.id.EventName);
+        TextView eventDescription = eventView.findViewById(R.id.briefDesc);
+
+        eventName.setText(event.getName());
+        eventDescription.setText(event.getBriefDescription());
+        horiLayout.addView(eventView);
+        eventView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,EventDescriptionPage.class);
+                intent.putExtra("name",name);
+                intent.putExtra("lat",lat);
+                intent.putExtra("lon",lon);
+                intent.putExtra("createdBy",createdBy);
+                intent.putExtra("brief",brief);
+                intent.putExtra("full",full);
+                intent.putExtra("selectedTime",selectedTime);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void addEventToLayout(EventInfo event){
         LinearLayout VertiLayout = findViewById(R.id.VertiLayout);
         String name=event.getName();
@@ -196,15 +250,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
-    private void addViewToVerti(FrameLayout frameLayout){
-        VertiLayoutContainer.addView(frameLayout);
-    }
-
-    private void addViewToHori(FrameLayout frameLayout){
-        HoriLayoutContainer.addView(frameLayout);
-    }
 
     private void setUpCreatEventButton(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
