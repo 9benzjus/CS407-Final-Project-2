@@ -120,6 +120,7 @@ private GoogleMap mmap;
     }
     private void addToSignedUp(){
         rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String email=sharedPreferences.getString("Username","defaultUsername");
         int dotIndex = email.indexOf('.');
         String username = email.substring(0, dotIndex);
