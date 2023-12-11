@@ -1,8 +1,10 @@
 package com.cs407.badgerbash;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -16,9 +18,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Map extends AppCompatActivity {
 private GoogleMap mmap;
+    private DatabaseReference rootRef;
+    FirebaseDatabase database;
+    private SharedPreferences sharedPreferences;
+    private int eventCount;
 
     EventInfo event;
     private LatLng eventDestination;
@@ -55,6 +66,7 @@ private GoogleMap mmap;
         mapTitle.setText(event.getName());
         Button backButton = findViewById(R.id.mapBackButton);
         Button directionsButton = findViewById(R.id.mapDirectionsButton);
+        Button signUp = findViewById(R.id.mapSignupButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +94,16 @@ private GoogleMap mmap;
             }
         });
 
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Map.this, MainActivity.class);
+                addToSignedUp();
+                startActivity(intent);
+            }
+        });
+
+
 
 
 
@@ -95,6 +117,34 @@ private GoogleMap mmap;
 
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraDestination, 14.5f)); // Zoom level is a float
+    }
+    private void addToSignedUp(){
+        rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
+        String email=sharedPreferences.getString("Username","defaultUsername");
+        int dotIndex = email.indexOf('.');
+        String username = email.substring(0, dotIndex);
+        getNumEvents();
+        rootRef.child(username).child("SignedUp").child("Event" + eventCount).setValue(event);
+        Intent intent = new Intent(Map.this, MainActivity.class);
+        startActivity(intent);
+    }
+    private void getNumEvents(){
+        rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
+        String email=sharedPreferences.getString("Username","defaultUsername");
+        int dotIndex = email.indexOf('.');
+        String username = email.substring(0, dotIndex);
+        DatabaseReference events = rootRef.child(username).child("SignedUp");
+        events.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                eventCount = (int) snapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }
