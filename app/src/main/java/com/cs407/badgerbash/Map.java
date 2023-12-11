@@ -68,6 +68,7 @@ private GoogleMap mmap;
         Button directionsButton = findViewById(R.id.mapDirectionsButton);
         Button signUp = findViewById(R.id.mapSignupButton);
 
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +105,7 @@ private GoogleMap mmap;
         });
 
 
-
+        getNumEvents();
 
 
 
@@ -124,13 +125,14 @@ private GoogleMap mmap;
         String email=sharedPreferences.getString("Username","defaultUsername");
         int dotIndex = email.indexOf('.');
         String username = email.substring(0, dotIndex);
-        getNumEvents();
+
         rootRef.child(username).child("SignedUp").child("Event" + eventCount).setValue(event);
         Intent intent = new Intent(Map.this, MainActivity.class);
         startActivity(intent);
     }
     private void getNumEvents(){
         rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String email=sharedPreferences.getString("Username","defaultUsername");
         int dotIndex = email.indexOf('.');
         String username = email.substring(0, dotIndex);

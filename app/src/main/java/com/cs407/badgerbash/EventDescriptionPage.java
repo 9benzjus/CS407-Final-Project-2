@@ -58,6 +58,7 @@ public class EventDescriptionPage extends AppCompatActivity {
 
         TextView timeTxt = findViewById(R.id.TimeTxt);
         timeTxt.setText("Event Time: \n" + selectedTime);
+        getNumEvents();
     }
 
     private void setUpLocationButton(Button button) {
@@ -103,7 +104,7 @@ public class EventDescriptionPage extends AppCompatActivity {
         String email = sharedPreferences.getString("Username", "defaultUsername");
         int dotIndex = email.indexOf('.');
         String username = email.substring(0, dotIndex);
-        getNumEvents();
+
         rootRef.child(username).child("SignedUp").child("Event" + eventCount).setValue(event);
         Intent intent = new Intent(EventDescriptionPage.this, MainActivity.class);
         startActivity(intent);
