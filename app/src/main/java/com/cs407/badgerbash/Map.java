@@ -79,6 +79,7 @@ private GoogleMap mmap;
                 intent1.putExtra("createdBy",event.getCreatedBy());
                 intent1.putExtra("brief",event.getBriefDescription());
                 intent1.putExtra("full",event.getFullDescription());
+                intent1.putExtra("selectedTime", event.getSelectedTime());
                 startActivity(intent1);
             }
         });

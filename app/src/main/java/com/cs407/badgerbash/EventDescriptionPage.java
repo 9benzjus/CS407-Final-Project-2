@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,15 +66,21 @@ public class EventDescriptionPage extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EventDescriptionPage.this, Map.class);
-                intent.putExtra("name", event.getName());
-                intent.putExtra("lat", event.getLat());
-                intent.putExtra("lon", event.getLon());
-                intent.putExtra("createdBy", event.getCreatedBy());
-                intent.putExtra("brief", event.getBriefDescription());
-                intent.putExtra("full", event.getFullDescription());
-                intent.putExtra("selectedTime", event.getSelectedTime());
-                startActivity(intent);
+                if (event.getLat() == null || event.getLon() ==null){
+                    Toast.makeText(EventDescriptionPage.this, "No Location Available", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    Intent intent = new Intent(EventDescriptionPage.this, Map.class);
+                    intent.putExtra("name", event.getName());
+                    intent.putExtra("lat", event.getLat());
+                    intent.putExtra("lon", event.getLon());
+                    intent.putExtra("createdBy", event.getCreatedBy());
+                    intent.putExtra("brief", event.getBriefDescription());
+                    intent.putExtra("full", event.getFullDescription());
+                    intent.putExtra("selectedTime", event.getSelectedTime());
+                    startActivity(intent);
+                }
             }
         });
     }
