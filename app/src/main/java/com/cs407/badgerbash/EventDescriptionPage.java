@@ -81,14 +81,8 @@ public class EventDescriptionPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EventDescriptionPage.this, MainActivity.class);
-                //addToSignedUp();
                 startActivity(intent);
             }
         });
     }
-
-    /*private void addToSignedUp(){
-        rootRef= FirebaseDatabase.getInstance().getReference().child("Users");
-        rootRef.child(Username).child("SignedUp").setValue(event);
-    }*/
 }
